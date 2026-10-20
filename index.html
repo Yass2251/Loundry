@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LaundryFlow — Sistem Manajemen Laundry Profesional. Kelola pesanan, pelanggan, pembayaran, dan laporan usaha laundry Anda.">
+  <title>LaundryFlow — Sistem Manajemen Laundry</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-layout">
+
+  <!-- ═══ Sidebar Overlay (mobile) ═══ -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ═══ Sidebar ═══ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-icon">
+        <!-- Washing machine icon -->
+        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="3"/><circle cx="12" cy="13" r="5"/><circle cx="12" cy="13" r="2"/><line x1="7" y1="6" x2="7" y2="6"/><line x1="10" y1="6" x2="10" y2="6"/></svg>
+      </div>
+      <div class="sidebar-brand-text">
+        <h1>LaundryFlow</h1>
+        <span>Manajemen Laundry</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-nav-label">Menu Utama</div>
+
+      <button class="nav-item active" data-page="dashboard" id="navDashboard">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="4" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="11" width="7" height="10" rx="1"/></svg>
+        <span>Dashboard</span>
+      </button>
+
+      <button class="nav-item" data-page="orders" id="navOrders">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+        <span>Pesanan Laundry</span>
+      </button>
+
+      <button class="nav-item" data-page="customers" id="navCustomers">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Pelanggan</span>
+      </button>
+
+      <button class="nav-item" data-page="services" id="navServices">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span>Layanan</span>
+      </button>
+
+      <button class="nav-item" data-page="reports" id="navReports">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <span>Laporan</span>
+      </button>
+
+      <button class="nav-item" data-page="settings" id="navSettings">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+        <span>Pengaturan</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <strong>LaundryFlow</strong><br>
+      Sistem Manajemen Laundry
+    </div>
+  </aside>
+
+  <!-- ═══ Main Content ═══ -->
+  <main class="main-content" id="mainContent">
+
+    <!-- Header -->
+    <header class="header" id="appHeader">
+      <div class="header-left">
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle sidebar">
+          <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="header-title-group">
+          <div class="header-title" id="headerTitle">Dashboard</div>
+          <div class="header-date" id="headerDate"></div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="header-search">
+          <svg class="header-search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Cari pesanan..." id="globalSearch" autocomplete="off">
+          <div class="search-results-dropdown" id="searchDropdown"></div>
+        </div>
+        <button class="btn btn-primary" id="btnNewOrder">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>Pesanan Baru</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <div class="page-content">
+
+      <!-- ═══ Dashboard ═══ -->
+      <section class="page-section active" id="pageDashboard">
+        <!-- Stats -->
+        <div class="stats-grid" id="dashboardStats"></div>
+
+        <!-- Alerts -->
+        <div class="alert-section" id="dashboardAlerts"></div>
+
+        <!-- Recent Orders -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Pesanan Terbaru</h3>
+            <button class="btn btn-sm btn-secondary" id="btnViewAllOrders">Lihat Semua</button>
+          </div>
+          <div class="card-body-np">
+            <div class="desktop-table">
+              <table class="data-table" id="recentOrdersTable">
+                <thead>
+                  <tr>
+                    <th>No. Pesanan</th>
+                    <th>Pelanggan</th>
+                    <th>Layanan</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Pembayaran</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="recentOrdersBody"></tbody>
+              </table>
+            </div>
+            <div class="mobile-cards" id="recentOrdersMobile"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ Orders Page ═══ -->
+      <section class="page-section" id="pageOrders">
+        <div class="toolbar" id="ordersToolbar">
+          <div class="toolbar-search">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Cari pesanan..." id="orderSearch">
+          </div>
+          <select id="filterStatus">
+            <option value="">Semua Status</option>
+            <option value="Menunggu">Menunggu</option>
+            <option value="Dicuci">Dicuci</option>
+            <option value="Dikeringkan">Dikeringkan</option>
+            <option value="Disetrika">Disetrika</option>
+            <option value="Siap Diambil">Siap Diambil</option>
+            <option value="Selesai">Selesai</option>
+            <option value="Dibatalkan">Dibatalkan</option>
+          </select>
+          <select id="filterPayment">
+            <option value="">Semua Pembayaran</option>
+            <option value="Belum Dibayar">Belum Dibayar</option>
+            <option value="Dibayar Sebagian">Dibayar Sebagian</option>
+            <option value="Lunas">Lunas</option>
+          </select>
+          <select id="sortOrder">
+            <option value="newest">Terbaru</option>
+            <option value="deadline">Tenggat Terdekat</option>
+            <option value="price-desc">Harga Tertinggi</option>
+            <option value="price-asc">Harga Terendah</option>
+          </select>
+          <div class="toolbar-spacer"></div>
+          <button class="btn btn-primary" id="btnNewOrderPage">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Pesanan Baru</span>
+          </button>
+        </div>
+
+        <div class="card">
+          <div class="card-body-np">
+            <div class="desktop-table">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>No. Pesanan</th>
+                    <th>Pelanggan</th>
+                    <th>Layanan</th>
+                    <th>Berat</th>
+                    <th>Tgl Masuk</th>
+                    <th>Estimasi</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Pembayaran</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="ordersTableBody"></tbody>
+              </table>
+            </div>
+            <div class="mobile-cards" id="ordersMobileCards"></div>
+            <div class="pagination" id="ordersPagination"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ Customers Page ═══ -->
+      <section class="page-section" id="pageCustomers">
+        <div class="toolbar">
+          <div class="toolbar-search">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Cari pelanggan..." id="customerSearch">
+          </div>
+        </div>
+        <div class="customer-cards" id="customerCards"></div>
+      </section>
+
+      <!-- ═══ Services Page ═══ -->
+      <section class="page-section" id="pageServices">
+        <div class="toolbar">
+          <div class="toolbar-spacer"></div>
+          <button class="btn btn-primary" id="btnAddService">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Tambah Layanan</span>
+          </button>
+        </div>
+        <div class="service-cards" id="serviceCards"></div>
+      </section>
+
+      <!-- ═══ Reports Page ═══ -->
+      <section class="page-section" id="pageReports">
+        <div class="toolbar">
+          <select id="reportPeriod">
+            <option value="today">Hari Ini</option>
+            <option value="week">Minggu Ini</option>
+            <option value="month">Bulan Ini</option>
+            <option value="all">Semua Waktu</option>
+          </select>
+          <div class="toolbar-spacer"></div>
+          <button class="btn btn-secondary" id="btnExportCSV">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Ekspor CSV</span>
+          </button>
+        </div>
+
+        <div class="report-stats" id="reportStats"></div>
+
+        <div class="card">
+          <div class="chart-container" id="revenueChart"></div>
+        </div>
+      </section>
+
+      <!-- ═══ Settings Page ═══ -->
+      <section class="page-section" id="pageSettings">
+        <div class="settings-section">
+          <h3>Informasi Usaha</h3>
+          <div class="form-group">
+            <label class="form-label">Nama Usaha</label>
+            <input type="text" class="form-control" id="settingBusinessName" placeholder="Nama usaha Anda">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Alamat Usaha</label>
+            <input type="text" class="form-control" id="settingBusinessAddress" placeholder="Opsional">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nomor Kontak</label>
+            <input type="text" class="form-control" id="settingBusinessPhone" placeholder="Opsional">
+          </div>
+          <button class="btn btn-primary" id="btnSaveSettings">Simpan Pengaturan</button>
+        </div>
+
+        <div class="settings-section">
+          <h3>Tema Tampilan</h3>
+          <div class="theme-toggle-group">
+            <button class="theme-btn active" data-theme-val="light" id="themeBtnLight">☀ Light</button>
+            <button class="theme-btn" data-theme-val="dark" id="themeBtnDark">🌙 Dark</button>
+          </div>
+        </div>
+
+        <div class="settings-section settings-danger-zone">
+          <h3>Zona Berbahaya</h3>
+          <div class="form-group">
+            <p style="font-size:13px;color:var(--clr-text-secondary);margin-bottom:var(--sp-md);">
+              Reset data akan mengembalikan data demo awal. Hapus semua data akan mengosongkan seluruh penyimpanan.
+            </p>
+            <div style="display:flex;gap:var(--sp-sm);flex-wrap:wrap;">
+              <button class="btn btn-secondary" id="btnResetDemo">Reset Data Demo</button>
+              <button class="btn btn-danger" id="btnClearAll">Hapus Semua Data</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /page-content -->
+  </main>
+
+</div><!-- /app-layout -->
+
+<!-- ═══ Toast Container ═══ -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ═══ Modal: Order Form ═══ -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="orderModalTitle">Pesanan Baru</h2>
+      <button class="modal-close" id="orderModalClose">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form id="orderForm" novalidate>
+        <input type="hidden" id="orderEditId">
+
+        <div class="form-group">
+          <label class="form-label">No. Pesanan</label>
+          <input type="text" class="form-control" id="orderNumber" disabled>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Nama Pelanggan <span class="required">*</span></label>
+          <input type="text" class="form-control" id="orderCustomer" placeholder="Masukkan nama pelanggan" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">No. Telepon</label>
+          <input type="tel" class="form-control" id="orderPhone" placeholder="Opsional">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Tanggal Masuk <span class="required">*</span></label>
+            <input type="date" class="form-control" id="orderDateIn" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Estimasi Selesai <span class="required">*</span></label>
+            <input type="date" class="form-control" id="orderDateEst" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Jenis Layanan <span class="required">*</span></label>
+          <select class="form-control" id="orderService" required>
+            <option value="">— Pilih Layanan —</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Berat (kg) <span class="required">*</span></label>
+            <input type="number" class="form-control" id="orderWeight" placeholder="0" step="0.1" min="0.1" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Harga per Kg <span class="required">*</span></label>
+            <input type="number" class="form-control" id="orderPricePerKg" placeholder="0" min="0" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Catatan</label>
+          <textarea class="form-control" id="orderNotes" placeholder="Catatan tambahan (opsional)" rows="2"></textarea>
+        </div>
+
+        <div class="total-preview">
+          <div class="total-preview-label">Estimasi Total Harga</div>
+          <div class="total-preview-value" id="orderTotalPreview">Rp0</div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" id="orderModalCancel">Batal</button>
+      <button class="btn btn-primary" id="orderModalSave">Simpan Pesanan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Modal: Order Detail ═══ -->
+<div class="modal-overlay" id="detailModal">
+  <div class="modal" style="max-width:620px;">
+    <div class="modal-header">
+      <h2 id="detailModalTitle">Detail Pesanan</h2>
+      <button class="modal-close" id="detailModalClose">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="detailModalBody"></div>
+    <div class="modal-footer" id="detailModalFooter"></div>
+  </div>
+</div>
+
+<!-- ═══ Modal: Payment Form ═══ -->
+<div class="modal-overlay" id="paymentModal">
+  <div class="modal" style="max-width:420px;">
+    <div class="modal-header">
+      <h2>Catat Pembayaran</h2>
+      <button class="modal-close" id="paymentModalClose">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div id="paymentOrderInfo" style="margin-bottom:var(--sp-md);padding:var(--sp-md);background:var(--clr-bg);border-radius:var(--radius-md);font-size:13px;"></div>
+      <form id="paymentForm" novalidate>
+        <input type="hidden" id="paymentOrderId">
+        <div class="form-group">
+          <label class="form-label">Nominal Pembayaran <span class="required">*</span></label>
+          <input type="number" class="form-control" id="paymentAmount" placeholder="0" min="1" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tanggal Pembayaran <span class="required">*</span></label>
+          <input type="date" class="form-control" id="paymentDate" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Catatan</label>
+          <input type="text" class="form-control" id="paymentNote" placeholder="Opsional">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" id="paymentModalCancel">Batal</button>
+      <button class="btn btn-primary" id="paymentModalSave">Simpan Pembayaran</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Modal: Confirm ═══ -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal" style="max-width:400px;">
+    <div class="modal-header">
+      <h2 id="confirmTitle">Konfirmasi</h2>
+      <button class="modal-close" id="confirmModalClose">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="confirm-body">
+        <p id="confirmMessage">Apakah Anda yakin?</p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" id="confirmCancel">Batal</button>
+      <button class="btn btn-danger" id="confirmOk">Ya, Lanjutkan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Modal: Service Form ═══ -->
+<div class="modal-overlay" id="serviceModal">
+  <div class="modal" style="max-width:420px;">
+    <div class="modal-header">
+      <h2 id="serviceModalTitle">Tambah Layanan</h2>
+      <button class="modal-close" id="serviceModalClose">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form id="serviceForm" novalidate>
+        <input type="hidden" id="serviceEditId">
+        <div class="form-group">
+          <label class="form-label">Nama Layanan <span class="required">*</span></label>
+          <input type="text" class="form-control" id="serviceName" placeholder="Contoh: Cuci Setrika" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Harga per Kg (Rp) <span class="required">*</span></label>
+          <input type="number" class="form-control" id="servicePrice" placeholder="0" min="0" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select class="form-control" id="serviceActive">
+            <option value="true">Aktif</option>
+            <option value="false">Nonaktif</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" id="serviceModalCancel">Batal</button>
+      <button class="btn btn-primary" id="serviceModalSave">Simpan Layanan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Modal: Customer History ═══ -->
+<div class="modal-overlay" id="customerHistoryModal">
+  <div class="modal" style="max-width:640px;">
+    <div class="modal-header">
+      <h2 id="customerHistoryTitle">Riwayat Pesanan</h2>
+      <button class="modal-close" id="customerHistoryClose">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="customerHistoryBody"></div>
+  </div>
+</div>
+
+<!-- ═══ Print Area ═══ -->
+<div class="print-area" id="printArea"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
